@@ -3,10 +3,13 @@ import cors from "cors";
 import { errorHandler } from "./middlewares/errorHandler.js";
 import { notFound } from "./middlewares/notFound.js";
 import registerRoutes from "./endpoints/index.js";
+import cookieParser from "cookie-parser";
+
 
 const app = express();
 
 app.use(cors());
+app.use(cookieParser());
 app.use(express.json());
 
 registerRoutes(app);

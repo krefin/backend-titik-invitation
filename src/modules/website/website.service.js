@@ -23,8 +23,35 @@ export const createWebsite = async (data) => {
   });
 };
 
-export const getAll = () =>
-  prisma.website.findMany({ orderBy: { createdAt: "desc" } });
+export const getAll = async ({ page = 1, limit = 10 }) => {
+  const skip = (page - 1) * limit;
+
+  const [data, total] = await Promise.all([
+    prisma.website.findMany({
+      skip,
+      take: limit,
+      orderBy: { createdAt: "desc" },
+      include: {
+        couple: true,
+        events: true,
+        galleries: true,
+        stories: true,
+        gifts: true,
+      },
+    }),
+    prisma.website.count(),
+  ]);
+
+  return {
+    data,
+    meta: {
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    },
+  };
+};
 
 export const getBySlug = (slug) =>
   prisma.website.findUnique({

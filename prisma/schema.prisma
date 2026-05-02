@@ -83,3 +83,21 @@ model Gift {
 
   website Website @relation(fields: [websiteId], references: [id], onDelete: Cascade)
 }
+
+model Admin {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+
+  tokens    Token[]
+}
+
+model Token {
+  id        Int      @id @default(autoincrement())
+  token     String
+  adminId   Int
+  createdAt DateTime @default(now())
+
+  admin Admin @relation(fields: [adminId], references: [id], onDelete: Cascade)
+}
