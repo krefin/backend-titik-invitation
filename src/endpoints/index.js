@@ -5,6 +5,7 @@ import storyRoutes from "../modules/story/story.route.js";
 import giftRoutes from "../modules/gift/gift.route.js";
 import websiteRoutes from "../modules/website/website.route.js";
 import authRoutes from "../modules/auth/auth.route.js";
+import paymentRoutes from "../modules/payment/payment.route.js";
 
 
 const registerRoutes = (app) => {
@@ -15,6 +16,7 @@ const registerRoutes = (app) => {
   app.use("/api/stories", storyRoutes);
   app.use("/api/gifts", giftRoutes);
   app.use("/api/auth", authRoutes);
+  app.use("/api/payment", paymentRoutes);
 };
 
 export default registerRoutes;
